@@ -13,3 +13,10 @@ And if the development process goes well, we will consider to release this toolk
 ## Attention
 
 This repo is currently under active development and thus is not friendly for open source use. More documentations will be released for some months.
+
+## Important Dependencies
+
+### FMM - a map matching library
+
+We are currently using this fork of the original repository for better Python3 support. (i.e. https://github.com/temetski/fmm/tree/python3_fixes)
+

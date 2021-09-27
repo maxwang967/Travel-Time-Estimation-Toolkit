@@ -15,9 +15,10 @@ def _extract_cpath(cpath):
         return []
     return [int(s) for s in cpath.split(',')]
 
+
 def _merge() -> pd.DataFrame():
     # concat all.csv and mr.txt
-    df_mr = pd.read_csv(Path(FLAG.config.work_dir) / "mr.txt", sep=";")
+    df_mr = pd.read_csv(Path(FLAG.config.work_dir) / FLAG.config.name / "mr.txt", sep=";")
     df_mr["cpath_list"] = df_mr.apply(lambda row: _extract_cpath(row.cpath), axis=1)
     df_mr = df_mr.drop(columns=["mgeom", "cpath"])
     df_mr = df_mr.rename(columns={"id": "MM_ID", "cpath_list": "LINK_LIST"})
@@ -29,10 +30,18 @@ def _merge() -> pd.DataFrame():
     # output final csv
     return df_final
 
-def save_final_csv() -> pd.DataFrame():
-    logging.info("Generating Final Porto Dataset...")
-    df_final =  _merge()
-    df_final.to_csv(Path(FLAG.config.output_dir) / FLAG.config.name / "final.csv", index=False)
-    logging.info("Generating Final Porto Dataset...Done")
-    del df_final
 
+def _clean_final_pickle(df_final):
+    # TODO can add other removing rules
+    # remove travel time <= 0
+    df_final = df_final[df_final.TRAVEL_TIME > 0]
+    return df_final
+
+
+def save_final_pickle() -> pd.DataFrame():
+    logging.info("Generating Final Dataset...")
+    df_final =  _merge()
+    df_final = _clean_final_pickle(df_final)
+    df_final.to_pickle(Path(FLAG.config.output_dir) / FLAG.config.name / "final.pkl")
+    logging.info("Generating Final Dataset...Done")
+    del df_final
