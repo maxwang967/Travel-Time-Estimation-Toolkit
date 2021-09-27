@@ -8,7 +8,7 @@ from pathlib import Path
 
 FLAG = flags.FLAGS
 
-def main():
+def run_mm():
     csv_file = Path(FLAG.config.work_dir) / FLAG.config.name / "mm.csv"
     road_network_path = Path("../data/road_networks") / FLAG.config.location 
     k = FLAG.config.fmm_config.k
@@ -36,7 +36,3 @@ def main():
     del fmm_config
     del input_config
     del result_config
-
-
-if __name__ == '__main__':
-    main()

@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 import subprocess
 from road_networks import extract_node_edge_features
-
+from map_matching import run_mm
 from visualize import visualize_trajectory
 
 FLAG = flags.FLAGS
@@ -36,6 +36,7 @@ def main(argv):
         # map matching: get the mr.txt
         # csv_file = os.path.join(FLAG.config.work_dir, "mm.csv")
         logging.info("Running Map Matching...")
+        run_mm()
         # mm_command = f"/usr/bin/python2 map_matching.py {csv_file} {os.path.join('../data/road_networks', FLAG.config.location)} {FLAG.config.fmm_config.k} {FLAG.config.fmm_config.radius} {FLAG.config.fmm_config.gps_error} {FLAG.config.work_dir}"
         # mm_process = subprocess.Popen(mm_command.split(), stdout=subprocess.PIPE)
         # output, _ = mm_process.communicate()
