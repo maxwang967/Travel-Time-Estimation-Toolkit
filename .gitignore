@@ -1,6 +1,7 @@
 data/*
-code/cache/*
+cache/*
 .vscode
 __pycache__
 work_dir
+src/notebooks
 fmm
