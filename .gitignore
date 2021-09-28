@@ -4,4 +4,4 @@ cache
 __pycache__
 work_dir
 src/notebooks
-fmm
+3rd_party/
